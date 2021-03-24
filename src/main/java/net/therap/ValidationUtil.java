@@ -24,7 +24,6 @@ public class ValidationUtil {
 
     public static void ValidateAge(int age, Annotation annotation, List<ValidationError> errors) {
         String errorMsg = "";
-        System.out.println(age);
         if (annotation instanceof Size) {
             if (!(age >= ((Size) annotation).min() && age <= ((Size) annotation).max())) {
                 errorMsg = "age(int): " + ((Size) annotation).message();
