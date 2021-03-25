@@ -1,4 +1,9 @@
-package net.therap;
+package net.therap.controller;
+
+import net.therap.annotation.Size;
+import net.therap.model.Person;
+import net.therap.model.ValidationError;
+import net.therap.util.ValidationUtil;
 
 import java.lang.reflect.Field;
 import java.lang.annotation.Annotation;
@@ -13,21 +18,21 @@ public class AnnotatedValidator {
     public static void Validate(Object object, List<ValidationError> errors) throws IllegalAccessException {
         Field[] fields = object.getClass().getDeclaredFields();
         for (Field field : fields) {
+            if (field.getModifiers() == Modifier.PRIVATE) {
+                field.setAccessible(true);
+            }
+            if (!field.isAnnotationPresent(Annotation.class)) {
+                continue;
+            }
             Annotation[] annotations = field.getAnnotations();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof Size) {
                     Size size = (Size) annotation;
-                    if (field.getModifiers() == Modifier.PRIVATE) {
-                        field.setAccessible(true);
-                    }
                     Object fieldValue = field.get(object);
-                    switch (field.getName()) {
-                        case "name":
-                            ValidationUtil.ValidateName((String) fieldValue, size, errors);
-                            break;
-                        case "age":
-                            ValidationUtil.ValidateAge((int) fieldValue, size, errors);
-                            break;
+                    if (String.class.equals(field.getType())) {
+                        ValidationUtil.validateName((String) fieldValue, size, errors);
+                    } else if (int.class.equals(field.getType())) {
+                        ValidationUtil.validateAge((int) fieldValue, size, errors);
                     }
                 }
             }

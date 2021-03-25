@@ -1,4 +1,4 @@
-package net.therap;
+package net.therap.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,5 +16,5 @@ public @interface Size {
 
     int max() default 100;
 
-    String message() default "Length must be within 1 - 100";
+    String message() default "Length must be within {min} - {max}";
 }

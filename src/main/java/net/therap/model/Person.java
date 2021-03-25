@@ -1,4 +1,6 @@
-package net.therap;
+package net.therap.model;
+
+import net.therap.annotation.Size;
 
 /**
  * @author masud.rana

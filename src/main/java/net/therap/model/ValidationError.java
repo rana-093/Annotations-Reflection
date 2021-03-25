@@ -1,4 +1,4 @@
-package net.therap;
+package net.therap.model;
 
 /**
  * @author masud.rana

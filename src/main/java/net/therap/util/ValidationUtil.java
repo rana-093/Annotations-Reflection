@@ -1,4 +1,7 @@
-package net.therap;
+package net.therap.util;
+
+import net.therap.annotation.Size;
+import net.therap.model.ValidationError;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -8,11 +11,13 @@ import java.util.List;
  * @since 24/03/2021
  */
 public class ValidationUtil {
-    public static void ValidateName(String name, Annotation annotation, List<ValidationError> errors) {
+    public static void validateName(String name, Annotation annotation, List<ValidationError> errors) {
         String errorMsg = "";
         if (annotation instanceof Size) {
-            if (!(name.length() >= ((Size) annotation).min() && name.length() <= ((Size) annotation).max())) {
-                errorMsg = "name(String): Length must be {" + ((Size) annotation).min() + "} - {" + ((Size) annotation).max() + "}";
+            if (!(name.length() >= ((Size) annotation).min() &&
+                    name.length() <= ((Size) annotation).max())) {
+                errorMsg = "name(String): Length must be {" + ((Size) annotation).min()
+                        + "} - {" + ((Size) annotation).max() + "}";
             }
         }
         if (errorMsg.length() > 0) {
@@ -22,10 +27,11 @@ public class ValidationUtil {
         }
     }
 
-    public static void ValidateAge(int age, Annotation annotation, List<ValidationError> errors) {
+    public static void validateAge(int age, Annotation annotation, List<ValidationError> errors) {
         String errorMsg = "";
         if (annotation instanceof Size) {
-            if (!(age >= ((Size) annotation).min() && age <= ((Size) annotation).max())) {
+            if (!(age >= ((Size) annotation).min() &&
+                    age <= ((Size) annotation).max())) {
                 errorMsg = "age(int): " + ((Size) annotation).message();
             }
         }
