@@ -15,13 +15,13 @@ public class Person {
     @Size(min = 18, message = "Age can not be less than {min}")
     private int age;
 
-    @Size(min = 1, max = 10)
-    private List<String> phoneNumbers;
+    @Size(min = 5, max = 10, ValueProvider = BuildingProvider.class)
+    private Building building;
 
-    public Person(String name, int age, List<String> list) {
-        this.phoneNumbers = list;
+    public Person(String name, int age, Building building) {
         this.name = name;
         this.age = age;
+        this.building = building;
     }
 
     public String getName() {
@@ -38,5 +38,13 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public Building getBuilding() {
+        return this.building;
     }
 }
