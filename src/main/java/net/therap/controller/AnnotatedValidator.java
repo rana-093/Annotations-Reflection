@@ -1,7 +1,6 @@
 package net.therap.controller;
 
 import net.therap.annotation.Size;
-import net.therap.model.Person;
 import net.therap.model.ValidationError;
 import net.therap.util.ValidationUtil;
 
@@ -21,18 +20,18 @@ public class AnnotatedValidator {
             if (field.getModifiers() == Modifier.PRIVATE) {
                 field.setAccessible(true);
             }
-            if (!field.isAnnotationPresent(Annotation.class)) {
-                continue;
-            }
+//            if (!field.isAnnotationPresent(Annotation.class)) {
+//                continue;
+//            }
             Annotation[] annotations = field.getAnnotations();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof Size) {
                     Size size = (Size) annotation;
-                    Object fieldValue = field.get(object);
-                    if (String.class.equals(field.getType())) {
-                        ValidationUtil.validateName((String) fieldValue, size, errors);
-                    } else if (int.class.equals(field.getType())) {
-                        ValidationUtil.validateAge((int) fieldValue, size, errors);
+                    String errorMsg = ValidationUtil.validateFields(field, size, object);
+                    if (errorMsg.length() > 0) {
+                        ValidationError validationError = new ValidationError();
+                        validationError.setErrorMessage(errorMsg);
+                        errors.add(validationError);
                     }
                 }
             }
