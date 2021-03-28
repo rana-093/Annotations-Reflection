@@ -24,9 +24,9 @@ public class AnnotatedValidator {
             if (field.getModifiers() == Modifier.PRIVATE) {
                 field.setAccessible(true);
             }
-//            if (!field.isAnnotationPresent(Annotation.class)) {
-//                continue;
-//            }
+            if (!field.isAnnotationPresent(Annotation.class)) {
+                continue;
+            }
             Annotation[] annotations = field.getAnnotations();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof Size) {
