@@ -4,7 +4,6 @@ import net.therap.annotation.Size;
 import net.therap.model.ValidationError;
 import net.therap.util.ValidationUtil;
 
-import java.awt.desktop.SystemEventListener;
 import java.lang.reflect.Field;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -16,11 +15,9 @@ import java.util.List;
  * @since 24/03/2021
  */
 public class AnnotatedValidator {
-    public static void Validate(Object object, List<ValidationError> errors) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+    public static void validate(Object object, List<ValidationError> errors) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         Field[] fields = object.getClass().getDeclaredFields();
-        System.out.println(object.getClass() + " ??? ");
         for (Field field : fields) {
-            System.out.println(field);
             if (field.getModifiers() == Modifier.PRIVATE) {
                 field.setAccessible(true);
             }
@@ -30,7 +27,6 @@ public class AnnotatedValidator {
             Annotation[] annotations = field.getAnnotations();
             for (Annotation annotation : annotations) {
                 if (annotation instanceof Size) {
-                    System.out.println(field.getType() + " , " + field.getName());
                     Size size = (Size) annotation;
                     String errorMsg = ValidationUtil.validateFields(field, size, object);
                     if (errorMsg.length() > 0) {

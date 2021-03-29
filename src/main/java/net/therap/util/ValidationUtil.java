@@ -20,11 +20,11 @@ import java.util.Map;
  * @since 24/03/2021
  */
 public class ValidationUtil {
-    static boolean isValid(int minSize, int maxSize, int curSize) {
+    private static boolean isValid(int minSize, int maxSize, int curSize) {
         return (curSize >= minSize) && (curSize <= maxSize);
     }
 
-    static String formatString(String errorMsg, Field field, int min, int max) {
+    private static String formatString(String errorMsg, Field field, int min, int max) {
         String minValueString = String.valueOf(min);
         String maxValueString = String.valueOf(max);
         errorMsg = errorMsg.replace("min", minValueString);
